@@ -6,8 +6,6 @@ ValutaX adalah aplikasi web berbasis HTML, CSS, dan JavaScript dengan dua piliha
 
 [Website responsif](https://ciamonica.github.io/ValutaX/website.html) · [Tampilan HP](https://ciamonica.github.io/ValutaX/) · [Panduan lengkap](https://ciamonica.github.io/ValutaX/PANDUAN.html)
 
-> Tautan aplikasi dapat digunakan setelah GitHub Pages aktif pada repositori ini.
-
 ## Pratinjau
 
 <table>
