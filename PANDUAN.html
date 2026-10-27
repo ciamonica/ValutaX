@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Panduan Lengkap ValutaX dan Firebase</title>
+<style>
+
+:root{color-scheme:light;--paper:#f8f4eb;--ink:#263d34;--green:#245c47;--muted:#637164;--line:#deded1;--coral:#e99a83;--butter:#f2d67d}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:24px}
+body{margin:0;padding:24px 22px 64px;background:var(--paper);color:var(--ink);font:16px/1.8 "Segoe UI",Arial,sans-serif}
+main{max-width:1040px;margin:0 auto;padding:42px 60px 58px;background:#fffdf8;border:1px solid var(--line);border-bottom:5px solid #e2e3d4;border-radius:28px;box-shadow:0 22px 60px -48px #314b36aa}
+a{color:var(--green);text-underline-offset:4px;text-decoration-thickness:1px}
+a:hover{text-decoration-thickness:2px}
+.back{display:inline-flex;align-items:center;min-height:38px;padding:5px 13px;border:1px solid var(--line);border-radius:999px;background:#f7f5ec;font-size:12px;font-weight:650;text-decoration:none}
+.back:hover{background:#edf0e4;text-decoration:none}
+.eyebrow{display:table;margin:34px 0 20px;padding:6px 11px;border:1px solid #d8dfd0;border-radius:8px;background:#edf2e7;color:var(--green);font-size:10px;font-weight:750;letter-spacing:.1em}
+h1{max-width:780px;margin:0 0 22px;font:normal clamp(38px,5vw,58px)/1.12 Georgia,"Times New Roman",serif;letter-spacing:-.045em}
+h2{margin:34px 0 16px;font:normal 31px/1.22 Georgia,"Times New Roman",serif;letter-spacing:-.035em}
+h3{margin:30px 0 12px;font-size:17px;line-height:1.5;font-weight:700;letter-spacing:-.015em}
+p{margin:13px 0}
+.lead{max-width:750px;margin-bottom:25px;color:var(--muted);font-size:18px;line-height:1.75}
+.note{margin:24px 0;padding:20px 23px;border:1px solid #d5ddcb;border-left:4px solid #7ba482;border-radius:12px;background:#edf3e6;color:#395442}
+.amber{border-color:#e5ce98;border-left-color:#ca9b4d;background:#fff2ce}
+.muted,.small{color:var(--muted)}
+.small{font-size:12px;line-height:1.8}
+.chapter{margin-top:38px;padding-top:12px;border-top:1px solid var(--line)}
+.chapter>h2{margin-top:25px}
+table{width:100%;border-collapse:separate;border-spacing:0;margin:20px 0;border:1px solid var(--line);border-radius:13px;overflow:hidden;font-size:13px;line-height:1.7}
+td,th{padding:13px 15px;vertical-align:top;text-align:left;border-right:1px solid var(--line);border-bottom:1px solid var(--line);overflow-wrap:anywhere}
+td:last-child,th:last-child{border-right:0}
+tbody tr:last-child td{border-bottom:0}
+th{background:#eaf0e2;color:var(--green);font-weight:700}
+td:first-child{width:31%;font-weight:550}
+tbody tr:nth-child(even) td{background:#faf9f1}
+code{padding:2px 5px;border:1px solid #e0e4d5;border-radius:5px;background:#f0f2e8;color:#344b3c;font:.86em/1.6 Consolas,"Courier New",monospace;overflow-wrap:anywhere}
+pre{white-space:pre-wrap;overflow-wrap:anywhere;margin:20px 0;padding:20px 23px;border:1px solid #173c2e;border-radius:13px;background:#243f33;color:#fff8e8;box-shadow:inset 0 1px 0 #ffffff14;font:13px/1.8 Consolas,"Courier New",monospace}
+pre code{padding:0;border:0;border-radius:0;background:transparent;color:inherit;font:inherit}
+.formula{border-color:#e0cf98;background:#fbefcc;color:#614d22;font-size:15px;line-height:2}
+li{margin:11px 0;padding-left:3px}
+li::marker{color:#698971;font-weight:650}
+ul,ol{padding-left:25px}
+.table-wrap{overflow:auto}
+.flow{display:grid;grid-template-columns:1fr 1fr;gap:13px;margin:26px 0;text-align:center}
+.flow>div{padding:18px 16px;border:1px solid #d7ddcc;border-radius:15px;background:#f4f6ed;box-shadow:0 3px 0 #e5e8da;font-size:13px;line-height:1.7}
+.flow .wide{grid-column:1/-1;border-color:#c9d7bf;background:#e6eedc}
+.flow .offline{border-color:#e7d4a4;background:#fff2ce}
+.flow strong,.flow small{display:block}
+.flow strong{font-weight:650}
+.flow small{margin-top:7px;color:#60715d;font-size:12px}
+.toc{columns:2;column-gap:18px;margin:17px 0 30px;padding:0;list-style:none}
+.toc li{margin:0 0 9px;padding:0;break-inside:avoid}
+.toc a{display:block;padding:10px 13px;border:1px solid #e0e4d6;border-radius:9px;background:#f8f8ef;font-size:13px;line-height:1.6;font-weight:600;text-decoration:none}
+.toc a:hover{border-color:#b6c8ab;background:#edf2e5}
+footer{margin-top:38px;padding-top:18px;border-top:1px solid var(--line);color:var(--muted);font-size:12px}
+:focus-visible{outline:3px solid #d79c55;outline-offset:4px}
+@media(max-width:760px){body{padding:0;background:#fffdf8}main{padding:28px 24px 44px;border:0;border-radius:0;box-shadow:none}h1{font-size:43px}h2{font-size:28px}.eyebrow{margin-top:29px}.lead{font-size:17px}td,th{padding:10px;font-size:12px}.note{padding:17px 18px}.toc{columns:1}.chapter{margin-top:30px}}
+@media(max-width:440px){main{padding:24px 18px 36px}h1{font-size:36px}h2{font-size:26px}body{font-size:15px}td:first-child{width:36%}td,th{padding:9px 8px}.flow{gap:9px}.flow>div{padding:13px 11px;font-size:12px}.flow small{font-size:11px}pre{padding:17px 14px;font-size:12px}.formula{font-size:13px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+@page{size:A4;margin:19mm 15mm}
+@media print{body{padding:0;background:white;font-size:10.5pt;line-height:1.6}main{padding:0;max-width:none;border:0;border-radius:0;background:white;box-shadow:none}.back{display:none}.eyebrow{margin:0 0 12px;padding:4px 8px;font-size:8pt}h1{font-size:30pt;line-height:1.15}h2{font-size:20pt;break-after:avoid}h3{font-size:12pt;break-after:avoid}.chapter{margin-top:20px;padding-top:8px;break-before:auto}#konsep,#kode{break-before:page}p{orphans:3;widows:3}.lead{font-size:12pt}.note{padding:12px 14px}table{font-size:8.8pt;line-height:1.55}td,th{padding:8px; font-size:inherit}tr,.note,.flow,pre{break-inside:avoid}thead{display:table-header-group}.toc{columns:2}.toc a{padding:6px 9px;font-size:9pt}pre{font-size:8.8pt;line-height:1.65}.formula{font-size:10pt}.flow>div{font-size:9pt;padding:10px}.flow small{font-size:8pt}.table-wrap{overflow:visible}footer{font-size:8.5pt}}
+
+</style></head><body><main>
+<a class="back" href="index.html">← Tampilan HP</a> <a class="back" href="website.html">Tampilan website →</a>
+<p class="eyebrow">VALUTAX / PANDUAN PENGGUNAAN / VERSI 4.3.1</p>
+<h1>Panduan penggunaan dan penjelasan aplikasi ValutaX</h1>
+<p class="lead">Petunjuk menjalankan aplikasi, menghubungkan riwayat konversi ke Firebase, serta memahami rumus, grafik, dan struktur kode.</p>
+<div class="note">ValutaX menghitung konversi mata uang dan emas, menampilkan grafik perbandingan, serta menyimpan riwayat ke Cloud Firestore. Saat offline, data tersimpan tetap dapat digunakan dan riwayat baru menunggu sinkronisasi.</div>
+<h2>Mulai dari sini</h2><ol>
+<li>Ekstrak seluruh ZIP. <code>index.html</code> menampilkan aplikasi dalam bingkai HP, sedangkan <code>website.html</code> menampilkan website responsif. Semua file pendamping tetap berada dalam folder yang sama.</li>
+<li>Di Windows, jalankan <code>JALANKAN_WINDOWS.bat</code> untuk tampilan HP atau <code>JALANKAN_WEBSITE_WINDOWS.bat</code> untuk tampilan website. Di macOS/Linux, jalankan <code>sh JALANKAN_MAC_LINUX.sh</code> dengan Python 3. Biarkan jendela peluncur terbuka selama aplikasi digunakan.</li>
+<li>Pada aplikasi, buka <strong>Pengaturan Firebase</strong> untuk memeriksa konfigurasi dan menguji koneksi. Jika menggunakan proyek lain, ikuti petunjuk penyiapan Firebase.</li>
+<li>Gunakan tombol <strong>Konversi</strong>, <strong>Grafik</strong>, dan <strong>Riwayat</strong> untuk berpindah bagian aplikasi.</li>
+</ol>
+<p>Kedua tampilan memakai fungsi konversi, konfigurasi Firebase, dan penyimpanan yang sama. Saat dibuka melalui alamat lokal yang sama pada browser yang sama, riwayat dan pilihan tema juga sama. Tautan di bagian bawah aplikasi dapat digunakan untuk berpindah tampilan.</p>
+<h2>Isi panduan</h2><ol class="toc"><li><a href="#konsep">Firebase dan fungsi database</a></li><li><a href="#pasang">Pemasangan untuk pemula</a></li><li><a href="#online">Online, offline, dan sinkronisasi</a></li><li><a href="#rumus">Rumus dan fungsi grafik</a></li><li><a href="#kode">Class, function, dan variabel</a></li><li><a href="#contoh">Contoh penggunaan</a></li><li><a href="#hosting">Hosting, pemulihan, dan rujukan</a></li></ol>
+<section class="chapter" id="konsep"><h2>1. Firebase dan fungsi database</h2>
+<p>Firebase adalah kumpulan layanan Google untuk aplikasi. Pada ValutaX, <strong>Cloud Firestore</strong> menyimpan riwayat hasil konversi. <strong>Firebase Authentication</strong> memberi identitas anonim kepada browser agar riwayat cloud hanya dapat diakses oleh identitas yang sesuai. <strong>Firebase Hosting</strong> dapat digunakan jika aplikasi ingin dibuka melalui link publik.</p>
+<p>Ketiganya mempunyai tugas berbeda. Kurs mata uang berasal dari <strong>ExchangeRate-API</strong>, sedangkan harga emas berasal dari <strong>Gold API</strong>. Firebase tidak otomatis menyediakan kurs atau harga emas.</p>
+<div class="table-wrap"><table><thead><tr><th>Bagian</th><th>Fungsi pada ValutaX</th></tr></thead><tbody>
+<tr><td>index.html dan style.css</td><td>Tampilan aplikasi dalam bingkai HP, dengan isi vertikal yang digulir di dalam layar.</td></tr><tr><td>website.html dan website.css</td><td>Tampilan website responsif dengan susunan lebar pada laptop dan satu kolom pada layar kecil.</td></tr><tr><td>app.js</td><td>Validasi input, perhitungan, grafik, cache, antrean riwayat, serta status online/offline.</td></tr><tr><td>firebase-client.js</td><td>Class penghubung ke Firebase Authentication dan Firestore melalui REST resmi.</td></tr><tr><td>config-utils.js, setup.html, setup.js</td><td>Pengaturan konfigurasi proyek tanpa menjalankan teks konfigurasi sebagai kode.</td></tr><tr><td>firebase-config.js</td><td>Identitas aplikasi Web dan parameter koneksi ke proyek Firebase.</td></tr><tr><td>firestore.rules</td><td>Membatasi akses berdasarkan UID pengguna dan memvalidasi data.</td></tr><tr><td>sw.js</td><td>Menyimpan halaman/aset lokal agar dapat dibuka ulang offline setelah kunjungan online pertama.</td></tr></tbody></table></div>
+<h3>Data yang disimpan</h3><p>Data yang disimpan adalah <strong>riwayat konversi</strong>. Setiap klik Simpan konversi membuat ID yang tetap digunakan saat pengiriman ulang. Aplikasi hanya menyimpan data konversi, tanpa kata sandi atau transaksi pembayaran.</p>
+<pre><code>users/{uid}/conversions/{idKonversi}</code></pre>
+<p class="small">Path tersebut mengelompokkan riwayat berdasarkan UID Authentication. Dokumen profil users/{uid} tidak perlu dibuat; subcollection riwayat dapat ada tanpa dokumen profil.</p>
+<table><thead><tr><th>Field Firestore</th><th>Isi dan tipe</th></tr></thead><tbody>
+<tr><td>amount</td><td>Angka nominal asal, lebih dari 0 sampai 10¹².</td></tr><tr><td>from, to</td><td>Kode asal dan tujuan. Pada aplikasi ini, XAU digunakan untuk emas dalam gram.</td></tr><tr><td>result, rate</td><td>Hasil numerik sebelum pembulatan tampilan dan rasio konversinya.</td></tr><tr><td>source</td><td>api atau cache. Data contoh tidak dapat dikirim sebagai riwayat nyata.</td></tr><tr><td>savedAt</td><td>Timestamp waktu penyimpanan menurut jam perangkat.</td></tr><tr><td>rateUpdatedAt</td><td>Timestamp sumber yang digunakan; jika dua sumber terlibat, waktu yang lebih lama dipilih.</td></tr></tbody></table>
+<p>Status synced, UID, dan project ID juga disimpan lokal untuk mengelola antrean. Metadata tersebut digunakan untuk mengelola status sinkronisasi. Akses cloud dibatasi berdasarkan UID pada path riwayat.</p></section>
+<section class="chapter" id="pasang"><h2>2. Pemasangan untuk pemula</h2>
+<h3>A. Jalankan berkas aplikasi</h3><p>Ekstrak seluruh paket. Jalankan peluncur sesuai sistem operasi. Browser akan membuka alamat localhost:8000 yang tetap. Biarkan jendela server terbuka selama aplikasi digunakan.</p><pre><code>Alternatif lewat terminal, dari folder aplikasi:
+python mulai.py</code></pre>
+<p>Peluncur Windows menggunakan PowerShell yang tersedia pada Windows. Untuk macOS/Linux atau perintah <code>python mulai.py</code>, gunakan Python 3 dari <a href="https://www.python.org/downloads/">python.org/downloads</a>. HTTPS atau localhost diperlukan untuk fitur pembukaan ulang offline. Membuka index.html lewat file:// bukan skenario web yang didukung untuk integrasi ini.</p>
+<h3>B. Siapkan proyek Firebase</h3><ol>
+<li>Buka <a href="https://console.firebase.google.com/">Firebase Console</a>, lalu masuk menggunakan akun Google yang memiliki akses ke proyek.</li>
+<li>Buka proyek yang sudah ada atau pilih pembuatan proyek baru, misalnya bernama ValutaX. Pilih paket Spark untuk kebutuhan awal tanpa menambahkan akun billing. Paket ini tetap memiliki batas pemakaian layanan.</li>
+<li>Daftarkan aplikasi Web melalui ikon &lt;/&gt;. Di Project settings → General → Your apps, salin objek firebaseConfig yang memuat apiKey dan projectId. Tidak perlu memasang SDK dari potongan contoh Console karena paket sudah mempunyai penghubung REST.</li>
+<li>Buat Cloud Firestore Standard edition dengan database (default), mulai dari Production mode. Pilih lokasi berdasarkan lokasi pengguna sebelum membuat database.</li>
+<li>Aktifkan Anonymous pada Authentication → Sign-in method. Identitas anonim digunakan aplikasi; ini berbeda dari akun Google pengelola.</li>
+<li>Di tab Rules Firestore, tempel seluruh isi firestore.rules dari paket dan tekan Publish. Aturan hanya memperbolehkan pengguna membaca dan menulis riwayat pada UID yang sesuai dengan format data yang valid.</li>
+</ol>
+<h3>C. Hubungkan melalui halaman pengaturan</h3><ol>
+<li>Buka Pengaturan Firebase pada aplikasi, atau halaman setup.html.</li><li>Tempel objek firebaseConfig lalu tekan Simpan pengaturan. Halaman menerima format objek JSON maupun const firebaseConfig = { ... }.</li><li>Tekan Uji koneksi Firebase. Pesan berhasil membuktikan akses baca Firestore, belum membuktikan penulisan hasil konversi.</li><li>Kembali ke aplikasi. Tunggu kurs valid, hitung satu konversi, lalu tekan Simpan konversi. Pastikan status riwayat menjadi Tersimpan di Firebase dan dokumennya terlihat di Console.</li></ol>
+<div class="note">Simpan pengaturan berlaku pada browser yang sama. Untuk perangkat lain atau hosting, tekan Unduh firebase-config.js dan gunakan file tersebut menggantikan file bernama sama sebelum menerbitkan aplikasi. Konfigurasi dalam file proyek mempunyai prioritas atas pengaturan browser.</div>
+<p>Jangan mengganti konfigurasi dengan alamat email. Objek Web mengidentifikasi proyek; password dan private key tidak diperlukan di kode web. Parser pengaturan menolak file service account.</p></section>
+<section class="chapter" id="online"><h2>3. Online, offline, dan sinkronisasi</h2>
+<table><thead><tr><th>Kondisi</th><th>Perilaku yang diharapkan</th></tr></thead><tbody>
+<tr><td>Jaringan dan Firebase tersedia</td><td>API memasok kurs/harga. Simpan konversi menulis lokal terlebih dahulu, lalu mengirim ke Firebase. Label Terhubung baru muncul setelah akses database berhasil.</td></tr>
+<tr><td>Internet terputus, cache sudah ada</td><td>Perhitungan dan grafik memakai snapshot terakhir beserta waktunya. Riwayat baru tetap lokal dengan status menunggu sinkronisasi.</td></tr>
+<tr><td>Internet ada, Firebase tidak dapat diakses</td><td>Kalkulator tetap bekerja. Kegagalan database ditampilkan terpisah. Riwayat lokal dipertahankan.</td></tr>
+<tr><td>API kurs gagal, Firebase tersedia</td><td>Kurs tersimpan dapat digunakan. Sinkronisasi database tidak bergantung pada berhasilnya API kurs.</td></tr>
+<tr><td>Belum mempunyai kurs/harga</td><td>Valuta dapat didemonstrasikan dengan data contoh berlabel. Riwayat dari data contoh tidak dikirim. Emas tanpa harga valid tidak dapat dipilih.</td></tr>
+<tr><td>Firebase kembali tersedia</td><td>Aplikasi membaca server, lalu mengirim antrean dengan ID dokumen tetap. Respons yang hilang setelah commit tidak menghasilkan dokumen duplikat saat retry.</td></tr>
+<tr><td>Halaman dibuka ulang offline</td><td>Tersedia setelah kunjungan online pertama dan pesan siap offline muncul. Kunjungan pertama ke website tetap membutuhkan jaringan.</td></tr>
+</tbody></table>
+<p>Badge Online/Offline pada header menunjukkan status jaringan perangkat. Label Firebase menunjukkan hasil pemeriksaan layanan secara terpisah. navigator.onLine tidak digunakan sebagai bukti bahwa server Firebase dapat diakses.</p>
+<p>Permintaan mempunyai batas waktu delapan detik. Saat halaman aktif, pemeriksaan antrean dilakukan setiap 30 detik untuk kegagalan sementara atau data tertunda; pembacaan rutin saat tidak ada antrean dikurangi menjadi sekitar dua menit. Kesalahan konfigurasi/izin menunggu perbaikan dan tombol Sinkronkan. Tidak ada janji pengiriman ketika browser ditutup.</p>
+<p>Data lokal memakai localStorage; sinkronisasi dikendalikan aplikasi, bukan persistence otomatis SDK Firestore. Web Locks mengoordinasikan signup/refresh token dan sinkronisasi pada tab-tab browser modern agar tidak membuat identitas bersamaan. Pada browser tanpa Web Locks, gunakan satu tab; ID dokumen tetap melindungi dari duplikasi dokumen.</p>
+<div class="flow" role="img" aria-label="Alur aplikasi bercabang berdasarkan jaringan dan akses Firebase.">
+<div class="wide"><strong>Buka halaman → muat pengaturan, cache, dan riwayat lokal</strong><small>Periksa jaringan perangkat dan akses Firebase secara terpisah.</small></div>
+<div><strong>↓ Layanan sumber tersedia</strong><small>Ambil kurs dan harga emas; simpan snapshot beserta waktunya.</small></div>
+<div class="offline"><strong>↓ Layanan sumber tidak tersedia</strong><small>Pakai cache; jika belum ada, tampilkan batas data contoh.</small></div>
+<div class="wide"><strong>↓ Input → validasi → hitung → gambar grafik</strong><small>Grafik memakai data yang sama dengan kalkulator.</small></div>
+<div><strong>↓ Simpan dengan data valid</strong><small>Simpan lokal lebih dahulu, lalu kirim saat Firebase dapat diakses.</small></div>
+<div class="offline"><strong>↓ Firebase belum tersedia</strong><small>Pertahankan antrean di perangkat dengan ID tetap.</small></div>
+<div class="wide"><strong>Koneksi pulih → baca server → kirim antrean → konfirmasi</strong><small>Baru setelah konfirmasi, riwayat ditandai tersimpan di Firebase.</small></div></div>
+</section>
+<section class="chapter" id="rumus"><h2>4. Rumus konversi dan fungsi grafik</h2>
+<h3>Konversi mata uang</h3><p>Semua kurs disusun terhadap USD. Misalkan r_asal adalah jumlah unit mata uang asal per 1 USD, r_tujuan adalah jumlah unit tujuan per 1 USD, dan A adalah nominal asal.</p>
+<pre class="formula"><code>rasio = r_tujuan / r_asal
+hasil = A × rasio</code></pre>
+<p>Contoh ilustratif: r_USD = 1 dan r_IDR = 16.000. Maka 100 USD × (16.000 / 1) = 1.600.000 IDR. Angka tersebut merupakan contoh perhitungan dan tidak menunjukkan kurs terbaru.</p>
+<h3>Konversi emas dalam gram</h3><p>Harga emas dari Gold API dinyatakan sebagai USD per troy ounce. Aplikasi mengubahnya ke basis gram. Satu troy ounce setara 31,1034768 gram.</p>
+<pre class="formula"><code>USD per gram = harga USD per troy ounce / 31,1034768
+r_XAU = gram per USD = 31,1034768 / harga USD per troy ounce
+hasil = nominal × (r_tujuan / r_asal)</code></pre>
+<p>Contoh ilustratif: harga 3.110,34768 USD/troy ounce setara 100 USD/gram. Dengan demikian, 100 USD setara 1 gram emas. Nilai XAU dalam aplikasi ini berarti gram; harga spot indikatif dapat berbeda dari harga produk emas, pajak, biaya, atau spread jual/beli.</p>
+<p>Kurs valuta dan harga emas mempunyai waktu pembaruan masing-masing. Jika konversi menggabungkan keduanya, waktu sumber yang lebih lama dicatat pada riwayat. Snapshot emas disimpan dan permintaan berikutnya diberi jeda minimal 30 detik sesuai petunjuk penyedia.</p>
+<h3>Apa fungsi diagram pada halaman?</h3><p>Grafik batang membandingkan nilai <strong>1 EUR, 1 GBP, 1 MYR, 1 SGD, dan 1 CNY</strong> dalam mata uang tujuan. Misalnya, jika tujuan IDR, semua batang mempunyai satuan IDR. Jika tujuan gram emas, semua batang mempunyai satuan gram.</p>
+<pre><code>nilaiBatang = r_tujuan / r_valuta
+lebarBatangPersen = nilaiBatang / nilaiBatangTerbesar × 100</code></pre>
+<p>Mengganti tujuan atau menukar asal-tujuan memperbarui grafik. Mengganti nominal input tidak mengubah grafik karena pembandingnya selalu satu unit valuta. Keterangan pada halaman menyatakan hal ini. Tombol Grafik membantu pengguna langsung menuju diagram.</p>
+<p>Grafik digambar dengan HTML/CSS lokal. Tidak memerlukan Chart.js, font, atau gambar dari CDN untuk tampil offline. Grafik menunjukkan perbandingan nilai valuta, bukan tren perubahan kurs dari waktu ke waktu.</p></section>
+<section class="chapter" id="kode"><h2>5. Class, function, dan variabel</h2>
+<h3>Class JavaScript dan class CSS</h3><p><strong>FirebaseHistoryClient</strong> adalah class JavaScript yang mengelola sesi dan permintaan database. Sebaliknya, nama seperti .converter-card dan .chart-row adalah class CSS yang mengatur tampilan, bukan class pemrograman berorientasi objek.</p>
+<table><thead><tr><th>Method FirebaseHistoryClient</th><th>Peran</th></tr></thead><tbody>
+<tr><td>constructor(), readSession(), getter uid</td><td>Memuat dan memvalidasi sesi lokal serta menyediakan UID. Sesi rusak tidak diam-diam diganti identitas baru.</td></tr>
+<tr><td>request()</td><td>HTTP dengan timeout, pemeriksaan JSON, dan pemeliharaan kode status kesalahan.</td></tr>
+<tr><td>authenticate(), obtainSession()</td><td>Memakai sesi yang berlaku, membuat identitas anonim pertama, atau memperbarui token. Web Locks mengoordinasikan tab.</td></tr>
+<tr><td>authorizedRequest()</td><td>Mengirim Bearer ID token dan sekali mencoba refresh jika server mengembalikan HTTP 401.</td></tr>
+<tr><td>collectionURL()</td><td>Membentuk path Firestore untuk proyek dan UID aktif.</td></tr>
+<tr><td>readHistory()</td><td>Membaca riwayat terbaru dari server dengan urutan savedAt menurun. Spasi query dienkode sebagai %20.</td></tr>
+<tr><td>writeRecord()</td><td>Menulis atau memperbarui dokumen berdasarkan ID tetap; memeriksa konfirmasi server.</td></tr>
+</tbody></table>
+<h3>Function pada app.js</h3><table><thead><tr><th>Function</th><th>Peran</th></tr></thead><tbody>
+<tr><td>initializeApp()</td><td>Memulai tema, jam, cache, event jaringan, pengambilan data, dan sinkronisasi.</td></tr>
+<tr><td>fetchLiveRates(), fetchGoldPrice()</td><td>Mengambil sumber kurs/emas dengan penanganan gagal, validasi respons, cache, dan konversi ounce ke gram.</td></tr>
+<tr><td>loadRatesCache(), updateGoldOptions()</td><td>Memuat snapshot tersimpan dan mengaktifkan opsi emas hanya bila harga valid tersedia.</td></tr>
+<tr><td>performConversion()</td><td>Memvalidasi input, menghitung rasio/hasil, memilih sumber/waktu riwayat, serta memperbarui tombol dan grafik.</td></tr>
+<tr><td>updateCurrencyUI(), swapCurrencies(), setQuickAmount()</td><td>Mengubah identitas valuta, menukar pasangan, dan menambah nominal melalui tombol +.</td></tr>
+<tr><td>renderComparisonChart()</td><td>Menggambar lima batang, nilai, judul satuan, dan penjelasan grafik.</td></tr>
+<tr><td>saveConversion(), syncHistory()</td><td>Menyimpan lokal lebih dahulu, memeriksa server, mengirim antrean, dan memberi status setelah konfirmasi.</td></tr>
+<tr><td>allRecords(), currentRecords(), validRecord()</td><td>Membaca entry lokal, memilih proyek/identitas, dan memvalidasi isi record.</td></tr>
+<tr><td>renderHistory(), renderConnectionStatus(), renderRateStatus()</td><td>Menggambar daftar, status perangkat/Firebase, serta sumber dan waktu data.</td></tr>
+<tr><td>handleNetworkChange(), registerOfflineShell()</td><td>Menangani online/offline/resume dan menyiapkan cache halaman melalui service worker.</td></tr>
+<tr><td>exportHistory()</td><td>Mengunduh riwayat lokal sebagai JSON tanpa menyertakan token sesi.</td></tr>
+<tr><td>initTheme(), toggleTheme(), updateDeviceTime()</td><td>Mengelola tema dan jam perangkat.</td></tr>
+<tr><td>formatNumber(), displayTime(), unitLabel()</td><td>Memformat angka/waktu dan menuliskan satuan gram emas secara jelas. Angka sangat kecil memakai notasi ilmiah.</td></tr>
+<tr><td>validRates(), validDate(), readJSON(), storeJSON()</td><td>Memvalidasi data sumber/tanggal dan membaca/menulis penyimpanan lokal.</td></tr>
+<tr><td>el(), scrollToSection(), showMessage(), firebaseErrorMessage()</td><td>Mengambil elemen, berpindah bagian, dan memberi pesan yang dapat dipahami pengguna.</td></tr>
+</tbody></table>
+<h3>Pengaturan dan service worker</h3><p><code>ValutaXConfig.normalize()</code> memvalidasi field konfigurasi; <code>parse()</code> membaca objek string tanpa eval; <code>resolve()</code> memilih file proyek atau pengaturan browser. Halaman setup memakai event tombol untuk menyimpan konfigurasi, mengunduh file, dan memeriksa koneksi. Service worker menangani event install, activate, dan fetch; hanya aset halaman yang dicache, bukan respons Authentication atau Firestore.</p>
+<table><thead><tr><th>Variabel/konstanta utama</th><th>Isi</th></tr></thead><tbody>
+<tr><td>exchangeRates</td><td>Kurs aktif berbasis USD; XAU dihitung sebagai gram per USD.</td></tr><tr><td>rateSource, rateUpdatedAt</td><td>Asal data valuta (api/cache/demo) dan waktu pembaruannya.</td></tr><tr><td>goldSource, goldUpdatedAt, lastGoldFetch</td><td>Status/waktu emas dan pembatas jeda permintaan.</td></tr><tr><td>latestConversion</td><td>Hasil numerik valid terbaru beserta asal dan waktu sumber.</td></tr><tr><td>deviceOnline, cloudState, cloudDetail</td><td>Status jaringan perangkat, hasil akses Firebase, dan penjelasannya.</td></tr><tr><td>firebaseClient, syncBusy, cloudRetryable, lastSyncAt</td><td>Objek koneksi, pengunci halaman, status retry, dan waktu pemeriksaan terakhir.</td></tr><tr><td>config, configState, firebaseConfigured</td><td>Konfigurasi tervalidasi dan sumbernya.</td></tr><tr><td>CURRENCY_CODES, FIAT_CODES, FLAGS_MAP</td><td>Daftar kode, pemisahan valuta/emas, dan simbol tampilan.</td></tr><tr><td>GRAMS_PER_TROY_OUNCE, MAX_AMOUNT</td><td>Konstanta 31,1034768 dan batas nominal input 10¹².</td></tr><tr><td>ratesController, refreshVersion</td><td>Pembatalan HTTP dan pencegah respons lama menimpa hasil baru.</td></tr><tr><td>CACHE_KEY, RECORD_PREFIX, storageAvailable</td><td>Nama penyimpanan kurs/riwayat dan status ketersediaan penyimpanan browser.</td></tr></tbody></table>
+</section>
+<section class="chapter" id="contoh"><h2>6. Contoh penggunaan</h2>
+<p>Langkah berikut menunjukkan alur konversi, grafik, penyimpanan riwayat, dan sinkronisasi.</p>
+<ol><li>Buka aplikasi saat online dan tunggu kurs tersedia. Masukkan nominal, pilih mata uang asal dan tujuan, lalu amati hasil konversi.</li><li>Tekan <strong>Simpan konversi</strong>. Riwayat tersimpan di perangkat, lalu dikirim ke Firebase. Status <strong>Tersimpan di Firebase</strong> muncul setelah server mengonfirmasi penyimpanan.</li><li>Tekan <strong>Grafik</strong> dan ubah mata uang tujuan. Nilai serta satuan setiap batang mengikuti tujuan yang dipilih.</li><li>Tunggu pesan siap offline. Putuskan koneksi, ubah nominal, lalu simpan hasil konversi menggunakan kurs tersimpan. Riwayat baru berstatus menunggu sinkronisasi.</li><li>Buka ulang halaman saat offline pada browser yang sama. Halaman, riwayat, dan grafik tersedia dari penyimpanan lokal.</li><li>Sambungkan kembali jaringan. Antrean dikirim otomatis; tombol <strong>Sinkronkan</strong> juga dapat digunakan. Status riwayat berubah setelah mendapat konfirmasi Firebase.</li><li>Gunakan <strong>Unduh riwayat</strong> untuk menyimpan salinan data dalam format JSON.</li></ol>
+</section>
+<section class="chapter" id="hosting"><h2>7. Hosting, pemulihan, dan rujukan</h2>
+<h3>Menerbitkan bila ingin link website</h3><p>Database menyimpan data, sedangkan hosting menyajikan aplikasi melalui alamat publik. Untuk menggunakan Firebase Hosting, siapkan konfigurasi Firebase, pasang Firebase CLI, lalu masuk menggunakan akun yang memiliki akses. Jalankan perintah berikut dari folder aplikasi dan ganti ID_PROYEK dengan ID pada pengaturan Firebase.</p>
+<pre><code>npm install -g firebase-tools
+firebase login
+firebase deploy --only firestore:rules,hosting --project ID_PROYEK</code></pre>
+<p>Konfigurasi hosting tersedia dalam <code>firebase.json</code>. Peluncur lokal dan berkas konfigurasi server tidak disajikan sebagai aset website.</p>
+<h3>Jika terjadi masalah</h3><table><thead><tr><th>Pesan/kondisi</th><th>Tindakan</th></tr></thead><tbody>
+<tr><td>Belum diatur</td><td>Buka Pengaturan Firebase. Tempel konfigurasi Web dari proyek yang benar.</td></tr><tr><td>Anonymous belum aktif</td><td>Aktifkan penyedia Anonymous pada Authentication.</td></tr><tr><td>Izin ditolak</td><td>Periksa rules yang dipublikasikan dan pembatasan API key untuk layanan yang dipakai.</td></tr><tr><td>Database tidak ditemukan</td><td>Pastikan Cloud Firestore (default) dibuat pada projectId yang sama.</td></tr><tr><td>Menunggu jaringan</td><td>Pertahankan halaman/riwayat. Sambungkan kembali, lalu tunggu atau tekan Sinkronkan.</td></tr><tr><td>Sesi rusak atau berubah</td><td>Jangan langsung menghapus data situs. Gunakan Unduh riwayat untuk backup, lalu periksa konfigurasi proyek dan sesi. Sesi anonim yang terhapus tidak dapat dipulihkan hanya dengan masuk ke Firebase Console.</td></tr><tr><td>Harga emas belum tersedia</td><td>Periksa jaringan/sumber harga atau gunakan cache yang valid. Aplikasi tidak mengganti harga dengan angka tetap yang dianggap aktual.</td></tr></tbody></table>
+<p>Riwayat cloud menggunakan identitas anonim per browser. Sinkronisasi riwayat antarperangkat memerlukan fitur login akun permanen. Menghapus data situs menghapus antrean lokal dan sesi anonim. Aplikasi dijalankan melalui browser. Pembuatan APK dengan Cordova memerlukan berkas platform, cordova.js, izin jaringan, dan proses build yang sesuai.</p>
+<h3>Rujukan resmi dan sumber data</h3><ol class="small">
+<li><a href="https://firebase.google.com/docs/web/setup">Firebase - konfigurasi aplikasi Web</a></li>
+<li><a href="https://firebase.google.com/docs/firestore/use-rest-api">Firestore - REST API dan ID token</a></li>
+<li><a href="https://firebase.google.com/docs/reference/rest/auth">Firebase Authentication REST API</a></li>
+<li><a href="https://firebase.google.com/docs/firestore/security/rules-conditions">Firestore Security Rules</a></li>
+<li><a href="https://firebase.google.com/docs/hosting/quickstart">Firebase Hosting</a></li>
+<li><a href="https://firebase.google.com/pricing">Paket dan batas penggunaan Firebase</a></li>
+<li><a href="https://www.exchangerate-api.com/">ExchangeRate-API</a></li>
+<li><a href="https://gold-api.com/llms.txt">Gold API - format harga USD dan pembaruan</a></li>
+<li><a href="https://www.nist.gov/system/files/documents/2018/07/12/07-lr-17-annual-fin.pdf">NIST - faktor konversi troy ounce ke gram</a></li>
+</ol><footer>ValutaX v4.3.1 · Panduan penggunaan dan penjelasan aplikasi.</footer></section>
+</main></body></html>

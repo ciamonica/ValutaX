@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pengaturan Firebase · ValutaX</title>
+<style>
+
+:root{color-scheme:light;--paper:#f8f4eb;--ink:#263d34;--green:#245c47;--muted:#647064;--line:#deded1;--coral:#e99a83;--butter:#f2d67d}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.75 "Segoe UI",Arial,sans-serif}
+main{max-width:900px;margin:0 auto;padding:38px 28px 80px}
+a{color:var(--green);text-underline-offset:4px;text-decoration-thickness:1px}
+a:hover{text-decoration-thickness:2px}
+.back-link{display:inline-flex;align-items:center;min-height:40px;padding:6px 14px;border:1px solid var(--line);border-radius:999px;background:#fffdf7;text-decoration:none;font-size:13px;font-weight:650;box-shadow:0 2px 0 #e8e6d9}
+.page-kicker{display:flex;align-items:center;gap:9px;margin:34px 0 12px;color:var(--green);font-size:11px;font-weight:750;letter-spacing:.14em;text-transform:uppercase}
+.page-kicker::before{content:"";width:9px;height:9px;border-radius:3px;background:var(--coral);transform:rotate(-12deg)}
+h1{font:normal clamp(34px,5.5vw,50px)/1.13 Georgia,"Times New Roman",serif;letter-spacing:-.04em;max-width:630px;margin:0 0 18px}
+main>p:not(.page-kicker){max-width:650px;color:var(--muted);margin:0 0 32px}
+h2{font:normal 25px/1.3 Georgia,"Times New Roman",serif;letter-spacing:-.025em;margin:0 0 18px}
+section{padding:30px 32px;background:#fffdf8;border:1px solid var(--line);border-radius:24px;margin-top:22px;box-shadow:0 4px 0 #e8e6d9,0 15px 32px -25px #40553a55}
+section:nth-of-type(2){border-top:4px solid var(--butter)}
+section:nth-of-type(3){border-top:4px solid #abc7b0}
+section:last-of-type{background:#f3f0e6;box-shadow:0 3px 0 #e8e6d9}
+section p{margin:12px 0}
+ol{list-style:none;counter-reset:step;margin:0;padding:0}
+li{position:relative;counter-increment:step;padding-left:43px;margin:19px 0;line-height:1.75}
+li::before{content:counter(step,decimal-leading-zero);position:absolute;left:0;top:2px;display:grid;place-items:center;width:28px;height:28px;border:1px solid #d8dfd0;border-radius:9px;background:#edf2e7;color:var(--green);font-size:11px;font-weight:750;font-variant-numeric:tabular-nums}
+strong{font-weight:650}
+label{display:block;font-size:14px;font-weight:650;margin:24px 0 10px}
+textarea{width:100%;min-height:230px;padding:18px;border:1px solid #cbd3c2;border-radius:15px;background:#f8f8f0;color:var(--ink);box-shadow:inset 0 2px 4px #263d3407;font:13px/1.75 Consolas,"Courier New",monospace;resize:vertical;tab-size:2}
+textarea::placeholder{color:var(--muted)}
+textarea:focus{border-color:var(--green)}
+button,.button{display:inline-flex;align-items:center;justify-content:center;min-height:45px;border:1px solid #174632;border-radius:12px;background:var(--green);color:#fffdf4;padding:11px 18px;margin:15px 8px 4px 0;font:650 14px/1.4 "Segoe UI",Arial,sans-serif;text-decoration:none;cursor:pointer;box-shadow:0 3px 0 #153e2d;transition:transform .15s ease,box-shadow .15s ease,background-color .15s ease}
+button:hover,.button:hover{background:#1c4e3b;text-decoration:none}
+button:active,.button:active{transform:translateY(2px);box-shadow:0 1px 0 #153e2d}
+.secondary{background:#f7f4e9;color:var(--green);border-color:#d1d8c7;box-shadow:0 3px 0 #e0e3d6}
+.secondary:hover{background:#ecf0e3}
+.secondary:active{box-shadow:0 1px 0 #e0e3d6}
+button:disabled{opacity:.45;cursor:not-allowed;transform:none;box-shadow:none}
+.note{font-size:13px;color:var(--muted);line-height:1.8}
+.status{padding:15px 17px;border:1px solid #ccd9c6;border-left:4px solid #769f7e;border-radius:10px;background:#edf3e6;color:#345b42;font-size:13px;line-height:1.8;overflow-wrap:anywhere}
+.error{border-color:#dba997;border-left-color:#bb6c54;background:#fff1e7;color:#854333}
+code{padding:3px 6px;border:1px solid #e3e4d6;border-radius:5px;background:#f0f1e8;font: .84em/1.5 Consolas,"Courier New",monospace;overflow-wrap:anywhere}
+:focus-visible{outline:3px solid #d79c55;outline-offset:4px}
+@media(max-width:600px){main{padding:24px 18px 48px}.page-kicker{margin-top:29px}h1{font-size:36px}h2{font-size:23px}section{padding:23px 20px;border-radius:20px;margin-top:18px}li{padding-left:38px;font-size:14px}button,.button{width:100%;margin:12px 0 3px}textarea{padding:13px;font-size:12px}.back-link{width:auto}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}button,.button{transition:none}}
+@page{size:A4;margin:18mm}
+@media print{body{background:#fff;font-size:10.5pt}main{padding:0;max-width:none}.back-link,.page-kicker{display:none}h1{font-size:28pt}h2{font-size:17pt;break-after:avoid}section{box-shadow:none;border-radius:8px;margin-top:16px;padding:18px;break-inside:avoid}button,.button{display:none}textarea{font-size:9pt;background:white}.note,.status{font-size:9pt}li{margin:12px 0;font-size:10pt}}
+
+</style>
+<script src="config-utils.js?v=4.3.1" defer></script><script src="firebase-config.js" defer></script>
+<script src="firebase-client.js?v=4.3.1" defer></script><script src="setup.js?v=4.3.1" defer></script>
+</head><body><main>
+<a class="back-link" href="index.html">← Tampilan HP</a> <a class="back-link" href="website.html">Tampilan website →</a>
+<p class="page-kicker">Pengaturan · ValutaX</p>
+<h1>Hubungkan riwayat ke Firebase</h1>
+<p>Halaman ini digunakan untuk mengatur koneksi Firebase. Pengaturan cukup dilakukan sekali pada browser ini. Data yang disimpan adalah <strong>riwayat konversi</strong>.</p>
+<section><h2>1. Siapkan proyek Firebase</h2><ol>
+<li>Buka <a href="https://console.firebase.google.com/" target="_blank" rel="noopener">Firebase Console</a>, lalu masuk menggunakan akun Google yang memiliki akses ke proyek.</li>
+<li>Gunakan proyek yang sudah ada atau buat proyek bernama <strong>ValutaX</strong>. Untuk kebutuhan awal, gunakan paket Spark tanpa mengaktifkan layanan berbayar.</li>
+<li>Daftarkan aplikasi <strong>Web (&lt;/&gt;)</strong> pada pengaturan proyek. Salin objek <code>firebaseConfig</code> yang memuat <code>apiKey</code> dan <code>projectId</code>.</li>
+<li>Buat <strong>Cloud Firestore Standard edition</strong>, database <code>(default)</code>, dengan mode awal <strong>Production</strong>. Pilih lokasi sesuai pengguna proyek sebelum dibuat.</li>
+<li>Aktifkan <strong>Anonymous</strong> di Authentication → Sign-in method. Layanan ini memberikan identitas anonim pada browser aplikasi untuk mengatur akses riwayat.</li>
+<li>Di Firestore → Rules, tempel seluruh isi file <code>firestore.rules</code> dalam paket ini dan tekan <strong>Publish</strong>.</li>
+</ol><p class="note">Panduan lengkap, contoh data, diagram alur, dan penjelasan rumus tersedia di <a href="PANDUAN.html">panduan ValutaX</a>.</p></section>
+<section><h2>2. Tempel konfigurasi aplikasi Web</h2>
+<p class="note">Bisa berupa objek { … } atau potongan <code>const firebaseConfig = { … };</code>. Konfigurasi tidak dieksekusi sebagai kode.</p>
+<label for="firebaseConfigInput">Konfigurasi Firebase</label>
+<textarea id="firebaseConfigInput" spellcheck="false" autocapitalize="off" autocomplete="off" placeholder='Tempel firebaseConfig dari Firebase Console di sini.'></textarea>
+<button id="saveConfigBtn" type="button">Simpan pengaturan</button>
+<button id="downloadConfigBtn" class="secondary" type="button">Unduh firebase-config.js</button>
+<p id="setupStatus" class="status" role="status" aria-live="polite">Membaca pengaturan…</p>
+<p class="note">Simpan pengaturan berlaku pada browser ini. Untuk menjalankan pada perangkat atau hosting lain, unduh <code>firebase-config.js</code> dan ganti file bernama sama pada paket sebelum diterbitkan. Bila file proyek sudah berisi konfigurasi, file tersebut menjadi sumber pengaturan utama.</p>
+</section>
+<section><h2>3. Periksa akses database</h2>
+<p>Tombol ini memeriksa pembuatan/pemakaian sesi anonim dan pembacaan Firestore. Setelah berhasil, kembali ke aplikasi dan simpan satu konversi untuk memeriksa penulisan data.</p>
+<button id="testConnectionBtn" type="button">Uji koneksi Firebase</button>
+<p id="connectionResult" class="status" role="status" aria-live="polite">Belum diuji pada browser ini.</p>
+<a class="button secondary" href="index.html">Buka tampilan HP</a> <a class="button secondary" href="website.html">Buka tampilan website</a>
+</section>
+<section><h2>Jika koneksi gagal</h2><p class="note">Pesan <em>Anonymous belum aktif</em>, <em>izin ditolak</em>, atau <em>database belum ditemukan</em> menunjukkan bagian proyek yang perlu diperiksa. Saat internet terputus, riwayat aplikasi tetap lokal dan akan dicoba lagi setelah online. Sesi anonim berlaku pada browser yang sama; riwayat lintas perangkat memerlukan fitur login akun permanen.</p>
+<p class="note">Jika sesi rusak, pertahankan data situs dan gunakan tombol Unduh riwayat di aplikasi untuk backup. Jangan menghapus data browser sebelum memahami konsekuensinya: sesi anonim yang terhapus tidak dapat dipulihkan hanya dengan masuk ke Firebase Console.</p></section>
+</main></body></html>

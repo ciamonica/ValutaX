@@ -1,0 +1,36 @@
+VALUTAX - PETUNJUK PENGGUNAAN
+
+1. Ekstrak seluruh isi ZIP dan pertahankan susunan berkas dalam folder ValutaX.
+
+2. Windows: klik dua kali JALANKAN_WINDOWS.bat untuk tampilan HP.
+   Untuk tampilan website, klik dua kali JALANKAN_WEBSITE_WINDOWS.bat.
+   macOS/Linux: jalankan sh JALANKAN_MAC_LINUX.sh menggunakan Python 3.
+   Tampilan HP: http://localhost:8000/ (index.html).
+   Tampilan website: http://localhost:8000/website.html.
+   Biarkan jendela peluncur terbuka. Tautan di bagian bawah aplikasi
+   dapat dipakai untuk berpindah tampilan. Riwayat dan pengaturan sama
+   jika keduanya dibuka pada alamat lokal dan browser yang sama.
+
+3. Tunggu kurs tersedia. Masukkan nominal, pilih mata uang asal dan tujuan,
+   lalu amati hasil konversi. Emas dinyatakan dalam gram.
+
+4. Tekan Simpan konversi untuk menambahkan riwayat. Status Tersimpan di
+   Firebase muncul setelah database mengonfirmasi penyimpanan.
+
+5. Saat offline, perhitungan dan grafik memakai kurs tersimpan. Riwayat baru
+   menunggu sinkronisasi dan dikirim otomatis setelah koneksi tersedia.
+   Pembukaan ulang offline tersedia setelah kunjungan online pertama dan
+   pesan kesiapan offline muncul pada aplikasi.
+
+6. Tombol Konversi, Grafik, dan Riwayat berpindah bagian aplikasi. Grafik
+   membandingkan nilai 1 EUR, GBP, MYR, SGD, dan CNY dalam satuan tujuan.
+
+7. Konfigurasi koneksi terdapat di firebase-config.js. Untuk menggunakan
+   proyek Firebase lain, ikuti petunjuk di halaman Pengaturan Firebase.
+   Aktifkan Cloud Firestore, Anonymous Authentication, dan firestore.rules.
+
+8. Riwayat menggunakan identitas anonim per browser. Gunakan Unduh riwayat
+   untuk menyimpan salinan data sebagai JSON.
+
+9. Panduan penggunaan, rumus, class, function, variabel, dan diagram alur
+   tersedia dalam PANDUAN.html.

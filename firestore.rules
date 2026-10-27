@@ -1,0 +1,30 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function isOwner(uid) {
+      return request.auth != null && request.auth.uid == uid;
+    }
+    function validCurrency(value) {
+      return value in ['USD', 'IDR', 'EUR', 'GBP', 'JPY', 'SGD', 'MYR', 'CNY', 'XAU'];
+    }
+    function validConversion() {
+      let d = request.resource.data;
+      return d.keys().hasAll(['amount', 'from', 'to', 'result', 'rate', 'source', 'savedAt', 'rateUpdatedAt'])
+        && d.keys().hasOnly(['amount', 'from', 'to', 'result', 'rate', 'source', 'savedAt', 'rateUpdatedAt'])
+        && d.amount is number && d.amount > 0 && d.amount <= 1000000000000
+        && d.result is number && d.result > 0 && d.result <= 100000000000000000000.0
+        && d.rate is number && d.rate > 0 && d.rate <= 1000000000000
+        && validCurrency(d.from) && validCurrency(d.to)
+        && d.source in ['api', 'cache']
+        && d.savedAt is timestamp && d.rateUpdatedAt is timestamp;
+    }
+    match /users/{uid}/conversions/{recordId} {
+      allow read: if isOwner(uid);
+      allow create, update: if isOwner(uid) && validConversion();
+      allow delete: if false;
+    }
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

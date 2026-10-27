@@ -1,0 +1,32 @@
+# Pengaturan dan kredensial lokal
+.env
+.env.*
+!.env.example
+*service-account*.json
+*serviceAccount*.json
+*firebase-adminsdk*.json
+credentials*.json
+*.pem
+*.key
+*.p12
+
+# Data pribadi hasil ekspor aplikasi
+ValutaX_riwayat*.json
+
+# Cache, dependensi, dan keluaran lokal
+.firebase/
+node_modules/
+__pycache__/
+*.py[cod]
+_site/
+*.log
+*.zip
+*.bak
+*.tmp
+
+# Pengaturan editor dan sistem operasi
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini

@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f8f4eb">
+  <meta name="description" content="Konversi mata uang dan emas, bandingkan kurs, dan simpan riwayat dengan ValutaX.">
+  <title>ValutaX — Tampilan website</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='20' fill='%23245c47'/%3E%3Cpath d='M16 24h32l-8-8M48 40H16l8 8' fill='none' stroke='%23f5e5a2' stroke-width='5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="website.css?v=4.3.1">
+  <script src="config-utils.js?v=4.3.1" defer></script>
+  <script src="firebase-config.js" defer></script>
+  <script src="firebase-client.js?v=4.3.1" defer></script>
+  <script src="app.js?v=4.3.1" defer></script>
+</head>
+<body class="light-theme">
+  <a class="skip-link" href="#converterHeading">Langsung ke konversi</a>
+  <div class="app-shell">
+    <header class="app-header">
+      <a class="brand" href="website.html" aria-label="ValutaX, halaman utama">
+        <span class="brand-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-4-4M19 16H5l4 4"/><path d="M19 8v1M5 16v-1"/></svg></span>
+        <span><span class="wordmark">ValutaX<span class="brand-period">.</span></span><span class="subtitle">Kurs & gram emas</span></span>
+      </a>
+      <nav class="app-nav" aria-label="Bagian aplikasi">
+        <button type="button" class="active" data-section="converterHeading" aria-current="location" onclick="scrollToSection('converterHeading')"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-4-4M19 16H5l4 4"/><path d="M19 8v1M5 16v-1"/></svg><span>Konversi</span></button>
+        <button type="button" data-section="chartTitle" onclick="scrollToSection('chartTitle')"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 19V9m7 10V5m7 14v-7"/></svg><span>Grafik</span></button>
+        <button type="button" data-section="historyHeading" onclick="scrollToSection('historyHeading')"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2V3Z"/><path d="M9 7h6m-6 4h6m-6 4h3"/></svg><span>Riwayat</span></button>
+      </nav>
+      <div class="header-actions">
+        <span class="local-time" title="Waktu setempat"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 7v5l3 2"/></svg><span id="deviceTime">--.--</span></span>
+        <div id="networkStatus" class="status-badge online" role="status"><span class="status-dot"></span><span id="statusText">Online</span></div>
+        <button id="themeToggle" class="icon-button btn-theme-toggle" type="button" onclick="toggleTheme()" title="Ganti tema" aria-label="Ganti tema"><span id="themeIcon" aria-hidden="true">☾</span></button>
+      </div>
+    </header>
+
+    <section class="intro" aria-labelledby="introTitle">
+      <div class="intro-copy">
+        <p class="eyebrow"><span class="tiny-spark" aria-hidden="true">✳</span> HITUNG KURS, SIMPAN RENCANA</p>
+        <h1 id="introTitle">Beda mata uang,<br><em>tetap mudah.</em></h1>
+        <p>Dolar, rupiah, atau gram emas.<br>Temukan nilainya, lalu simpan untuk nanti.</p>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <svg viewBox="0 0 300 230" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <ellipse cx="152" cy="208" rx="103" ry="9" fill="#244F3F" opacity=".08"/>
+          <path d="M39 89c-7-15-5-36 12-44 20-10 38 3 46 16" stroke="#B4CBB4" stroke-width="2" stroke-dasharray="4 7" stroke-linecap="round"/>
+          <path d="m38 77 1 14 13-4" stroke="#799A80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <g transform="rotate(-13 121 126)">
+            <rect x="50" y="65" width="134" height="138" rx="67" fill="#D9B75D" stroke="#A68B4F" stroke-width="2"/>
+            <ellipse cx="113" cy="128" rx="63" ry="67" fill="#F5DC89" stroke="#A68B4F" stroke-width="2"/>
+            <ellipse cx="113" cy="128" rx="48" ry="52" stroke="#C7A957" stroke-width="1.5" stroke-dasharray="2 5"/>
+            <path d="M109 98v7m0 45v8m14-45c-4-9-25-9-25 2 0 14 27 7 27 21 0 12-25 13-29 2" stroke="#7C6536" stroke-width="4" stroke-linecap="round"/>
+            <path d="M70 102c3-9 8-14 14-17" stroke="#FFF3C0" stroke-width="5" stroke-linecap="round"/>
+          </g>
+          <g transform="rotate(12 205 153)">
+            <rect x="153" y="97" width="104" height="112" rx="52" fill="#C77A65" stroke="#A66A55" stroke-width="2"/>
+            <ellipse cx="201" cy="150" rx="48" ry="54" fill="#F0AA91" stroke="#A66A55" stroke-width="2"/>
+            <ellipse cx="201" cy="150" rx="36" ry="42" stroke="#CF8C74" stroke-width="1.5"/>
+            <circle cx="189" cy="148" r="3" fill="#694C3C"/><circle cx="210" cy="148" r="3" fill="#694C3C"/>
+            <path d="M191 162c5 6 12 6 17 0" stroke="#694C3C" stroke-width="2.5" stroke-linecap="round"/>
+            <ellipse cx="180" cy="158" rx="5" ry="3" fill="#E98F7D"/><ellipse cx="218" cy="158" rx="5" ry="3" fill="#E98F7D"/>
+            <path d="M173 124c2-5 5-8 9-10" stroke="#FFDBCA" stroke-width="4" stroke-linecap="round"/>
+          </g>
+          <path d="M221 36v24m-12-12h24m-20-8 16 16m0-16-16 16" stroke="#6F9675" stroke-width="3.5" stroke-linecap="round"/>
+          <path d="m270 80 3 9 9 3-9 3-3 9-3-9-9-3 9-3 3-9Z" fill="#D4B362"/>
+          <circle cx="64" cy="177" r="5" fill="#96B59A"/>
+        </svg>
+      </div>
+    </section>
+
+    <div class="workspace-caption"><span><span class="section-dot"></span> Satu tempat untuk semua hitunganmu</span><span class="caption-note">Kurs valuta & harga emas</span></div>
+
+    <div class="app-body">
+      <div id="offlineNotice" class="offline-alert hidden" role="status"><span class="notice-symbol" aria-hidden="true">!</span><div id="offlineNoticeText"></div></div>
+
+      <main class="converter-card" aria-labelledby="converterHeading">
+        <div class="card-header">
+          <div><span class="section-kicker">01 / KONVERSI</span><h2 id="converterHeading">Mulai dari nominalmu</h2></div>
+          <button id="refreshBtn" type="button" onclick="fetchLiveRates()" class="icon-button btn-refresh" title="Perbarui kurs" aria-label="Perbarui kurs"><span id="refreshIcon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 7v5h-5"/><path d="M19 12a7 7 0 1 0-2 5"/></svg></span></button>
+        </div>
+
+        <div class="conversion-fields">
+          <div class="amount-panel">
+            <div class="amount-heading"><label for="fromAmount">Dari</label><div class="select-wrapper"><span id="fromFlag" class="currency-flag" role="img" aria-label="USD">$</span><select aria-label="Mata uang asal" id="fromCurrency" onchange="updateCurrencyUI('from')"><option value="USD" selected>USD · Dolar AS</option>
+<option value="IDR">IDR · Rupiah</option>
+<option value="EUR">EUR · Euro</option>
+<option value="GBP">GBP · Pound</option>
+<option value="JPY">JPY · Yen</option>
+<option value="SGD">SGD · Dolar Singapura</option>
+<option value="MYR">MYR · Ringgit</option>
+<option value="CNY">CNY · Yuan</option>
+<option value="XAU" disabled>Emas (menunggu harga)</option></select></div></div>
+            <div class="input-box"><input class="amount-input" type="number" id="fromAmount" value="100" min="0" max="1000000000000" step="any" inputmode="decimal" aria-describedby="amountError" placeholder="0" oninput="performConversion()"></div>
+            <span class="amount-caption">Nominal yang ingin dihitung</span>
+          </div>
+          <div class="swap-container"><span></span><button type="button" onclick="swapCurrencies()" class="btn-swap" title="Tukar mata uang" aria-label="Tukar mata uang"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-4-4M19 16H5l4 4"/><path d="M19 8v1M5 16v-1"/></svg></button><span></span></div>
+          <div class="amount-panel result-panel">
+            <div class="amount-heading"><label for="toAmount">Menjadi</label><div class="select-wrapper"><span id="toFlag" class="currency-flag" role="img" aria-label="IDR">Rp</span><select aria-label="Mata uang tujuan" id="toCurrency" onchange="updateCurrencyUI('to')"><option value="USD">USD · Dolar AS</option>
+<option value="IDR" selected>IDR · Rupiah</option>
+<option value="EUR">EUR · Euro</option>
+<option value="GBP">GBP · Pound</option>
+<option value="JPY">JPY · Yen</option>
+<option value="SGD">SGD · Dolar Singapura</option>
+<option value="MYR">MYR · Ringgit</option>
+<option value="CNY">CNY · Yuan</option>
+<option value="XAU" disabled>Emas (menunggu harga)</option></select></div></div>
+            <div class="input-box"><input class="amount-input" type="text" id="toAmount" readonly placeholder="0"></div>
+            <span class="amount-caption">Hasil konversi</span>
+          </div>
+        </div>
+        <p id="amountError" class="field-error" role="alert"></p>
+
+        <div class="rate-info-box"><span class="rate-mark" aria-hidden="true">≈</span><div><h3 id="exchangeRateRatio">1 USD = — IDR</h3><small id="rateStatus" role="status"></small><small id="goldRateStatus" role="status"></small></div></div>
+        <div class="quick-amounts"><span>Tambah nominal</span><div class="quick-buttons"><button type="button" onclick="setQuickAmount(10)">+10</button><button type="button" onclick="setQuickAmount(50)">+50</button><button type="button" onclick="setQuickAmount(100)">+100</button><button type="button" onclick="setQuickAmount(1000)">+1.000</button></div></div>
+        <button id="saveHistoryBtn" type="button" class="primary-button" onclick="saveConversion()" disabled><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h12v18l-6-4-6 4V3Z"/></svg><span>Simpan konversi</span><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-5-5 5 5-5 5"/></svg></button>
+        <p id="actionMessage" class="small-note action-message" role="status" aria-live="polite"></p>
+        <p class="conversion-footnote">Emas dihitung per gram dari harga spot indikatif. Harga produk emas dapat berbeda.</p>
+      </main>
+
+      <div class="insights-column">
+        <section class="chart-card" aria-labelledby="chartTitle">
+          <div class="chart-header"><div><span class="section-kicker">02 / PERBANDINGAN</span><h2 id="chartTitle">Nilai 1 valuta dalam IDR</h2></div><span class="section-icon peach-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 19V9m7 10V5m7 14v-7"/></svg></span></div>
+          <p class="chart-intro">Lihat nilainya, berdampingan.</p>
+          <ol id="comparisonChart" class="comparison-chart" aria-describedby="chartDescription"></ol>
+          <p id="chartDescription" class="small-note"></p>
+        </section>
+
+        <section class="data-card sync-card" aria-labelledby="firebaseHeading">
+          <div class="section-title"><div class="title-with-icon"><span class="section-icon green-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 18a4 4 0 1 1-.1-8A5.5 5.5 0 0 1 17.5 8 5 5 0 1 1 18 18"/><path d="m9 16 3-3 3 3m-3-3v8"/></svg></span><h2 id="firebaseHeading">Penyimpanan</h2></div><span id="firebaseStatus" class="firebase-status">Belum diatur</span></div>
+          <p id="firebaseDetail" class="small-note" role="status"></p>
+          <div class="sync-row"><span><strong id="pendingCount">0</strong> riwayat menunggu</span><button id="syncBtn" type="button" onclick="syncHistory()" class="secondary-button"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 7v5h-5"/><path d="M19 12a7 7 0 1 0-2 5"/></svg><span>Sinkronkan</span></button></div>
+          <a class="settings-link" href="setup.html"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M4 17h16"/><circle cx="9" cy="7" r="3" fill="var(--surface)"/><circle cx="15" cy="17" r="3" fill="var(--surface)"/></svg> Pengaturan Firebase <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-5-5 5 5-5 5"/></svg></a>
+        </section>
+      </div>
+
+      <section class="data-card history-card" aria-labelledby="historyHeading">
+        <div class="history-header"><div><span class="section-kicker">03 / TERSIMPAN UNTUK NANTI</span><div class="history-title-row"><h2 id="historyHeading">Jejak konversimu</h2><small id="historyCount">0 riwayat</small></div></div><button type="button" class="secondary-button export-button" onclick="exportHistory()"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m-4-4 4 4 4-4M5 16v4h14v-4"/></svg><span>Unduh riwayat</span></button></div>
+        <div id="historyEmpty" class="empty-history"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2V3Z"/><path d="M9 7h6m-6 4h6m-6 4h3"/></svg><strong>Riwayatmu mulai di sini.</strong><p>Hitung sesuatu, lalu simpan hasilnya.<br>Nanti kamu bisa melihatnya lagi di sini.</p></div>
+        <ul id="historyList" class="history-list"></ul>
+      </section>
+
+      <footer class="app-footer">
+        <div class="footer-summary">
+          <span class="footer-brand">ValutaX<span>.</span></span>
+          <p id="offlineReady">Pembukaan ulang offline tersedia setelah kunjungan online pertama melalui HTTPS atau localhost.</p>
+        </div>
+        <div class="footer-group">
+          <span class="footer-label">Sumber data</span>
+          <a href="https://www.exchangerate-api.com" target="_blank" rel="noopener"><span>Kurs · ExchangeRate-API</span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+          <a href="https://gold-api.com" target="_blank" rel="noopener"><span>Emas · Gold API</span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+        </div>
+        <div class="footer-group">
+          <span class="footer-label">Jelajahi ValutaX</span>
+          <a class="guide-link" href="PANDUAN.html">Panduan penggunaan <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+          <a class="view-switch" href="index.html"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M10 5h4m-3 14h2"/></svg> Tampilan HP</a>
+        </div>
+      </footer>
+    </div>
+  </div>
+</body>
+</html>
